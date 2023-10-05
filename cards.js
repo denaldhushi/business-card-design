@@ -13,6 +13,10 @@ class BusinessCardDesign {
 		this.stage = {};
 		this.layer = {};
 		this.background = {};
+		this.__transformer = null;
+		this.__textTransformer = null;
+		this.selectedImage = null;
+		this.selectedText = null;
 	}
 
 	Run() {
@@ -106,6 +110,23 @@ class BusinessCardDesign {
 		});
 	}
 
+	clearTransformer() {
+		if (this.selectedImage) {
+			this.__transformer.detach();
+			this.__transformer.destroy();
+			this.__transformer = null;
+			this.selectedImage = null;
+			this.layer.draw();
+		}
+		if (this.selectedText) {
+			this.__textTransformer.detach();
+			this.__textTransformer.destroy();
+			this.__textTransformer = null;
+			this.selectedText = null;
+			this.layer.draw();
+		}
+	}
+
 	Image() {
 		const bgImageInput = document.getElementById(this.imagecontainer);
 		bgImageInput?.addEventListener('change', (e) => {
@@ -118,16 +139,39 @@ class BusinessCardDesign {
 					imageObj.onload = () => {
 						const image = new Konva.Image({
 							image: imageObj,
-							width: 400,
-							height: 250,
-							zIndex: 0
+							width: 200,
+							height: 100,
+							draggable: true,
+						});
+						image.on('click', (e) => {
+							this.clearTransformer();
+							this.__transformer = new Konva.Transformer({
+								nodes: [image],
+								keepRatio: true,
+								rotateEnabled: true,
+							});
+							this.layer.add(this.__transformer);
+							this.__transformer.attachTo(image);
+							this.selectedImage = image;
+							this.layer.draw();
+							e.cancelBubble = true;
 						});
 						this.layer.add(image);
-						this.setIcons();
 						this.layer.draw();
 					};
 				};
 				reader.readAsDataURL(file);
+			}
+		});
+		this.stage.on('click', (e) => {
+			this.clearTransformer();
+		});
+		const removeButton = document.getElementById('remove-image-button');
+		removeButton?.addEventListener('click', () => {
+			if (this.selectedImage) {
+				this.selectedImage.destroy();
+				this.clearTransformer();
+				this.layer.draw();
 			}
 		});
 	}
@@ -143,6 +187,23 @@ class BusinessCardDesign {
 			});
 			this.layer.draw();
 		};
+	}
+
+	clearTextTransformer() {
+		if (this.selectedText) {
+			this.__textTransformer.detach();
+			this.__textTransformer.destroy();
+			this.__textTransformer = null;
+			this.selectedText = null;
+			this.layer.draw();
+		}
+		if (this.selectedImage) {
+			this.__transformer.detach();
+			this.__transformer.destroy();
+			this.__transformer = null;
+			this.selectedImage = null;
+			this.layer.draw();
+		}
 	}
 
 	AddText() {
@@ -189,25 +250,25 @@ class BusinessCardDesign {
 			let clickCount = 0;
 			let transformer = null;
 			customText.on('click', (e) => {
-				if (!transformer) {
-					transformer = new Konva.Transformer({
-						nodes: [customText],
-						keepRatio: true,
-						rotateEnabled: true,
-					});
-					this.layer.add(transformer);
-					transformer.attachTo(customText);
-					this.layer.draw();
-				}
+				this.clearTextTransformer();
+				this.__textTransformer = new Konva.Transformer({
+					nodes: [customText],
+					keepRatio: true,
+					rotateEnabled: true,
+				});
+				this.layer.add(this.__textTransformer);
+				this.__textTransformer.attachTo(customText);
+				this.selectedText = customText;
+				this.layer.draw();
 				e.cancelBubble = true;
 			});
 			this.stage.on('click', (e) => {
-				if (transformer) {
-					const clickedOnTransformer = transformer.findOne('.border') === e.target;
+				if (this.__textTransformer) {
+					const clickedOnTransformer = this.__textTransformer.findOne('.border') === e.target;
 					if (!clickedOnTransformer) {
-						transformer.detach();
-						transformer.destroy();
-						transformer = null;
+						this.__textTransformer.detach();
+						this.__textTransformer.destroy();
+						this.__textTransformer = null;
 						this.layer.draw();
 					}
 				}
@@ -217,6 +278,7 @@ class BusinessCardDesign {
 		}
 	}
 }
+
 document.addEventListener('DOMContentLoaded', function () {
 	const businessCard = new BusinessCardDesign({
 		container: 'card-designer',
