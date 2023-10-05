@@ -119,9 +119,11 @@ class BusinessCardDesign {
 						const image = new Konva.Image({
 							image: imageObj,
 							width: 400,
-							height: 250
+							height: 250,
+							zIndex: 0
 						});
 						this.layer.add(image);
+						this.setIcons();
 						this.layer.draw();
 					};
 				};
