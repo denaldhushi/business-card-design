@@ -8,6 +8,7 @@ class BusinessCardDesign {
 		this.download = options.download || false;
 		this.text = options.text || false;
 		this.colorpicker = options.colorpicker || false;
+		this.imagecontainer = options.imagecontainer || '';
 		this.bgcolor = options.bgcolor || '#fff';
 		this.stage = {};
 		this.layer = {};
@@ -26,6 +27,7 @@ class BusinessCardDesign {
 		this.ColorPicker();
 		this.setIcons();
 		this.Text();
+		this.Image();
 	}
 
 	Layer() {
@@ -36,19 +38,6 @@ class BusinessCardDesign {
 	setBGColor(color) {
 		this.background.fill(color);
 		this.layer.draw();
-	}
-
-	setBGImage(imageURL) {
-		const imageObj = new Image();
-		imageObj.src = imageURL;
-		imageObj.onload = () => {
-			this.background.fillPatternImage(imageObj);
-			this.background.fillPatternScale({
-				x: this.stage.width() / imageObj.width,
-				y: this.stage.height() / imageObj.height
-			});
-			this.layer.draw();
-		};
 	}
 
 	setBGInitially() {
@@ -118,14 +107,40 @@ class BusinessCardDesign {
 	}
 
 	Image() {
-		const bgImageInput = document.getElementById('bg-image-input');
-		bgImageInput.addEventListener('change', (event) => {
-			const file = event.target.files[0];
+		const bgImageInput = document.getElementById(this.imagecontainer);
+		bgImageInput?.addEventListener('change', (e) => {
+			const file = e.target.files[0];
 			if (file) {
-				const imageURL = URL.createObjectURL(file);
-				this.setBGImage(imageURL);
+				const reader = new FileReader();
+				reader.onload = (e) => {
+					const imageObj = new Image();
+					imageObj.src = e.target.result;
+					imageObj.onload = () => {
+						const image = new Konva.Image({
+							image: imageObj,
+							width: 400,
+							height: 250
+						});
+						this.layer.add(image);
+						this.layer.draw();
+					};
+				};
+				reader.readAsDataURL(file);
 			}
 		});
+	}
+
+	setBGImage(imageURL) {
+		const imageObj = new Image();
+		imageObj.src = imageURL;
+		imageObj.onload = () => {
+			this.background.fillPatternImage(imageObj);
+			this.background.fillPatternScale({
+				x: this.stage.width() / imageObj.width,
+				y: this.stage.height() / imageObj.height
+			});
+			this.layer.draw();
+		};
 	}
 
 	AddText() {
@@ -212,6 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			btncontainer: 'add-text-button',
 			inputcontainer: 'custom-text-input'
 		},
+		imagecontainer: 'bg-image-input',
 		colorpicker: 'bg-color-picker',
 		colorpicker: 'bg-color-picker',
 		icons: [{
