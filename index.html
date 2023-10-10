@@ -9,31 +9,53 @@
 </head>
 <body>
 	<div class="container mt-5">
-		<h1>Cards</h1>
+		<h2>Your Business Card</h2>
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card mb-4">
 					<div class="card-body">
-						<div class="form-group">
-							<label for="bg-image-input">Background Image</label>
-							<input type="file" class="form-control-file" id="bg-image-input" accept="image/*">
-						</div>
-						<div class="form-group">
-							<label for="bg-color-picker">Background Color</label>
-							<input type="color" class="" id="bg-color-picker" value="#FFFFFF">
-						</div>
-						<div class="form-group">
-							<label for="custom-text-input">Custom Text</label>
-							<input type="text" class="form-control" id="custom-text-input" placeholder="Enter custom text">
-						</div>
-						<button class="btn btn-primary" id="add-text-button">Add Text</button>
 						<div id="card-designer"></div>
-						<button class="btn btn-success mt-3" id="download-button">Download Card</button>		
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="container mt-5">
+		<div class="row g-4">
+			<div class="col-lg-3">
+				<div class="form-group">
+					<input type="file" class="form-control-file" id="bg-image-input" accept="image/*" style="display: none;">
+					<button class="btn btn-primary" id="bg-image-button">Add Image</button>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<input type="color" class="form-control" id="bg-color-picker" value="#FFFFFF" style="display: none;">
+					<button class="btn btn-primary" id="bg-color-button">Background</button>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<button class="btn btn-success" id="download-button">Download Card</button>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="input-group">
+					<input type="text" class="form-control" id="custom-text-input" placeholder="Enter text">
+					<div class="input-group-text" id="add-text-button">Add Text</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script src="./components/Bootstrap/bootstrap.bundle.min.js"></script>
+	<script>
+		document.getElementById("bg-image-button").addEventListener("click", function() {
+			document.getElementById("bg-image-input").click();
+		});
+
+		document.getElementById("bg-color-button").addEventListener("click", function() {
+			document.getElementById("bg-color-picker").click();
+		});
+	</script>
 </body>
 </html>
