@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Cards</title>
 	<script src="./cards.js?ver=1.0.0"></script>
 	<script src="https://cdn.jsdelivr.net/npm/konva@9.0.0/konva.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="./cards.css">
+	<link rel="stylesheet" type="text/css" href="./components/Bootstrap/bootstrap.min.css">
 </head>
 <body>
-	<div class="dashboard-scroll container">
-		<div class="container">
-			<h1 class="mt-5 mb-4">Cards</h1>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card mb-4">
-						<div class="card-body">
-							<input type="file" id="bg-image-input" accept="image/*">
-							<input type="color" id="bg-color-picker" value="#FFFFFF">
-							<input type="text" id="custom-text-input" placeholder="Enter custom text">
-							<button id="add-text-button">Add Text</button>
-							<div id="card-designer"></div>
-							<button id="download-button">Download Card</button>		
+	<div class="container mt-5">
+		<h1>Cards</h1>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card mb-4">
+					<div class="card-body">
+						<div class="form-group">
+							<label for="bg-image-input">Background Image</label>
+							<input type="file" class="form-control-file" id="bg-image-input" accept="image/*">
 						</div>
+						<div class="form-group">
+							<label for="bg-color-picker">Background Color</label>
+							<input type="color" class="" id="bg-color-picker" value="#FFFFFF">
+						</div>
+						<div class="form-group">
+							<label for="custom-text-input">Custom Text</label>
+							<input type="text" class="form-control" id="custom-text-input" placeholder="Enter custom text">
+						</div>
+						<button class="btn btn-primary" id="add-text-button">Add Text</button>
+						<div id="card-designer"></div>
+						<button class="btn btn-success mt-3" id="download-button">Download Card</button>		
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script src="./components/Bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>
