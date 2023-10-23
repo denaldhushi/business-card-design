@@ -33,3 +33,12 @@ body {
 	width: 100%;
 	max-width: 400px;
 }
+.footer-fixed {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #fff;
+}
+.footer-bg {
+	background: #f7f7f7;
+}

@@ -8,8 +8,10 @@
 	<link rel="stylesheet" type="text/css" href="./components/Bootstrap/bootstrap.min.css">
 </head>
 <body>
-	<div class="container mt-5">
-		<h2>Your Business Card</h2>
+	<div class="row m-4">
+		<h4>Your Business Card</h4>
+	</div>
+	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card mb-4">
@@ -21,26 +23,26 @@
 		</div>
 	</div>
 	<div class="container mt-5">
-		<div class="row g-4">
+		<div class="row g-4 footer-fixed footer-bg">
 			<div class="col-lg-3">
-				<div class="form-group">
+				<div class="form-group mb-3">
 					<input type="file" class="form-control-file" id="bg-image-input" accept="image/*" style="display: none;">
-					<button class="btn btn-primary" id="bg-image-button">Add Image</button>
+					<button class="btn btn-primary" id="bg-image-button" style="width: 100%">Add Image</button>
 				</div>
 			</div>
 			<div class="col-lg-3">
-				<div class="form-group">
+				<div class="form-group mb-3">
 					<input type="color" class="form-control" id="bg-color-picker" value="#FFFFFF" style="display: none;">
-					<button class="btn btn-primary" id="bg-color-button">Background</button>
+					<button class="btn btn-primary" id="bg-color-button" style="width: 100%">Background</button>
 				</div>
 			</div>
 			<div class="col-lg-3">
-				<div class="form-group">
-					<button class="btn btn-success" id="download-button">Download Card</button>
+				<div class="form-group mb-3">
+					<button class="btn btn-success" id="download-button" style="width: 100%">Download Card</button>
 				</div>
 			</div>
 			<div class="col-lg-3">
-				<div class="input-group">
+				<div class="input-group mb-3">
 					<input type="text" class="form-control" id="custom-text-input" placeholder="Enter text">
 					<div class="input-group-text" id="add-text-button">Add Text</div>
 				</div>
