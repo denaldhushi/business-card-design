@@ -21,9 +21,9 @@ class BusinessCardDesign {
 
 	Run() {
 		this.stage = new Konva.Stage({
-			container: 'card-designer',
-			width: 400,
-			height: 250,
+			container: this.container,
+			width: this.width,
+			height: this.height,
 		});
 		this.Layer();
 		this.setBGInitially();
