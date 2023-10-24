@@ -19,6 +19,11 @@ class BusinessCardDesign {
 		this.selectedText = null;
 	}
 
+	/**
+	 * Initializes and runs the main functionality of the application.
+	 * This function creates a Konva stage, sets up various layers and tools,
+	 * and initializes the drawing canvas.
+	 */
 	Run() {
 		this.stage = new Konva.Stage({
 			container: this.container,
@@ -34,16 +39,28 @@ class BusinessCardDesign {
 		this.Image();
 	}
 
+	/**
+	 * Initializes a new Konva layer and adds it to the stage.
+	 * This function creates a layer for drawing elements and adds it to the canvas stage.
+	 */
 	Layer() {
 		this.layer = new Konva.Layer();
 		this.stage.add(this.layer);	
 	}
 
+	/**
+	 * Sets the background color of the canvas.
+	 * @param {string} color - The color to set as the background.
+	 */
 	setBGColor(color) {
 		this.background.fill(color);
 		this.layer.draw();
 	}
 
+	/**
+	 * Initializes and sets the initial background for the canvas.
+	 * Creates a rectangle shape with the specified background color and adds it to the layer.
+	 */
 	setBGInitially() {
 		this.background = new Konva.Rect({
 			width: this.stage.width(),
@@ -53,6 +70,10 @@ class BusinessCardDesign {
 		this.layer.add(this.background);
 	}
 
+	/**
+	 * Sets up icons on the canvas.
+	 * Loads and displays icons on the canvas based on the configuration in this.icons.
+	 */
 	setIcons() {
 		if (this.icons.length == 0) {
 			return false;
@@ -75,6 +96,10 @@ class BusinessCardDesign {
 		}
 	}
 
+	/**
+	 * Initializes and sets up the download functionality for the canvas.
+	 * When a download button is clicked, it triggers the download of the canvas content as an image.
+	 */
 	Download() {
 		if (!this.download || this.download['container'] === undefined) {
 			return false;
@@ -89,6 +114,10 @@ class BusinessCardDesign {
 		});
 	}
 
+	/**
+	 * Sets up the text tool for adding text to the canvas.
+	 * If configured, it adds a click event listener to a button that triggers the text addition functionality.
+	 */
 	Text() {
 		if (!this.text || this.text['btncontainer'] === undefined) {
 			return false;
@@ -99,6 +128,10 @@ class BusinessCardDesign {
 		});
 	}
 
+	/**
+	 * Sets up the color picker tool for selecting the canvas background color.
+	 * If configured, it adds an input event listener to the color picker element.
+	 */
 	ColorPicker() {
 		if (!this.colorpicker) {
 			return false;
@@ -110,6 +143,10 @@ class BusinessCardDesign {
 		});
 	}
 
+	/**
+	 * Clears the active transformer for either an image or text.
+	 * This function detaches and destroys the transformer, resetting the selected image or text.
+	 */
 	clearTransformer() {
 		if (this.selectedImage) {
 			this.__transformer.detach();
@@ -127,6 +164,10 @@ class BusinessCardDesign {
 		}
 	}
 
+	/**
+	 * Sets up the image tool for adding images to the canvas.
+	 * Allows users to select and add images to the canvas. Provides functionality for resizing, rotating, and removing images.
+	 */
 	Image() {
 		const bgImageInput = document.getElementById(this.imagecontainer);
 		bgImageInput?.addEventListener('change', (e) => {
@@ -176,6 +217,10 @@ class BusinessCardDesign {
 		});
 	}
 
+	/**
+	 * Sets the background image of the canvas.
+	 * @param {string} imageURL - The URL of the image to set as the canvas background.
+	 */
 	setBGImage(imageURL) {
 		const imageObj = new Image();
 		imageObj.src = imageURL;
@@ -189,6 +234,10 @@ class BusinessCardDesign {
 		};
 	}
 
+	/**
+	 * Clears the active transformer for either an image or text.
+	 * This function detaches and destroys the transformer, resetting the selected image or text.
+	 */
 	clearTextTransformer() {
 		if (this.selectedText) {
 			this.__textTransformer.detach();
@@ -206,6 +255,10 @@ class BusinessCardDesign {
 		}
 	}
 
+	/**
+	 * Adds text to the canvas.
+	 * Allows users to add and edit text on the canvas. Provides functionality for text input and transformation.
+	 */
 	AddText() {
 		const textValue = document.getElementById(this.text.inputcontainer)?.value;
 		if (textValue) {
